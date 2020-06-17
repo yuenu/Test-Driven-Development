@@ -3,7 +3,9 @@ from django.http import HttpResponse
 
 
 def home(request):
-	return HttpResponse('<html><title>To-Do lists</title></html>')
+	if request.method == 'POST':
+		return HttpResponse(reqeust.POST['item_text'])
+	return render(request, 'home.html', {})
 
 def about(request):
 	return HttpResponse('<h1>This is about page</h1>')

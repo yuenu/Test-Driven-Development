@@ -16,7 +16,7 @@ class NewVistorTest(unittest.TestCase):
 		self.driver.get('http://localhost:8000')
 
 		self.assertIn('To-Do', self.driver.title)
-		heade_text = self.driver.find_element_by_tag_name('h1').text
+		header_text = self.driver.find_element_by_tag_name('h1').text
 		self.assertIn('To-Do', header_text)
 
 		inputbox = self.driver.find_element_by_id('id_new_item')
@@ -25,14 +25,16 @@ class NewVistorTest(unittest.TestCase):
 			'Enter a to-do item'
 		)
 
-		inputbox.send_box('Buy peacock feathers')
+		inputbox.send_keys('Buy peacock feathers')
 
 		inputbox.send_keys(Keys.ENTER)
+
 
 		table = self.driver.find_element_by_id('id_list_table')
 		rows = self.driver.find_elements_by_tag_name('tr')
 		self.assertTrue(
-			any(rows.text == '1: Buy peacock feathers' for row in rows)
+			any(rows.text == '1: Buy peacock feathers' for row in rows),
+			"New to-do item did not appear in table"
 		)
 
 
